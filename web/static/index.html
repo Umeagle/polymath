@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polymath - Arbitrage Bot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="header">
+  <h1><span>Polymath</span> Arbitrage Bot</h1>
+  <div class="connection-status">
+    <div class="status-dot" id="statusDot"></div>
+    <span id="statusText">Connecting...</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Stats Row -->
+  <div class="grid-stats" id="statsGrid">
+    <div class="stat-card">
+      <div class="label">Kalshi Markets</div>
+      <div class="value" id="statKalshi">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Polymarket Markets</div>
+      <div class="value" id="statPoly">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Matched Pairs</div>
+      <div class="value accent" id="statMatched">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Opportunities</div>
+      <div class="value green" id="statOpps">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Total Scans</div>
+      <div class="value" id="statScans">--</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Last Scan</div>
+      <div class="value" id="statLastScan" style="font-size:0.85rem">--</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" data-tab="opportunities">Opportunities</div>
+    <div class="tab" data-tab="matched">Matched Markets</div>
+    <div class="tab" data-tab="settings">Settings</div>
+  </div>
+
+  <!-- Opportunities Tab -->
+  <div class="tab-content active" id="tab-opportunities">
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Arbitrage Opportunities</h2>
+        <span class="badge" id="oppCount">0 found</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Market</th>
+              <th>Expires</th>
+              <th>Direction</th>
+              <th>Kalshi Price</th>
+              <th>Poly Price</th>
+              <th>Cost</th>
+              <th>Profit</th>
+              <th>ROI</th>
+              <th>Depth</th>
+              <th>Match %</th>
+            </tr>
+          </thead>
+          <tbody id="oppTableBody">
+            <tr><td colspan="10"><div class="empty-state"><div class="icon">&#x1F50D;</div><p>Scanning for opportunities...</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Matched Markets Tab -->
+  <div class="tab-content" id="tab-matched">
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Matched Market Pairs</h2>
+        <span class="badge" id="matchCount">0 pairs</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Kalshi Market</th>
+              <th>Polymarket Market</th>
+              <th>Expires</th>
+              <th>Similarity</th>
+              <th>Kalshi Yes/No</th>
+              <th>Poly Yes/No</th>
+            </tr>
+          </thead>
+          <tbody id="matchTableBody">
+            <tr><td colspan="6"><div class="empty-state"><p>No matched markets yet</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Tab -->
+  <div class="tab-content" id="tab-settings">
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Scanner Settings</h2>
+      </div>
+      <div class="settings-grid">
+        <div class="setting-item">
+          <label>Scan Interval (seconds)</label>
+          <input type="number" id="setScanInterval" min="1" max="300" value="5">
+        </div>
+        <div class="setting-item">
+          <label>Min Profit (cents)</label>
+          <input type="number" id="setMinProfit" min="0" step="0.5" value="2">
+        </div>
+        <div class="setting-item">
+          <label>Match Threshold (%)</label>
+          <input type="number" id="setMatchThreshold" min="50" max="100" value="80">
+        </div>
+        <div class="setting-item">
+          <label>Max Position (USD)</label>
+          <input type="number" id="setMaxPosition" min="1" step="10" value="100">
+        </div>
+        <div class="setting-item">
+          <label>Auto-Execute</label>
+          <div class="toggle-wrap">
+            <label class="toggle">
+              <input type="checkbox" id="setAutoExecute">
+              <span class="slider"></span>
+            </label>
+            <span class="toggle-label" id="autoExecLabel">Disabled</span>
+          </div>
+        </div>
+      </div>
+      <div class="settings-actions">
+        <button class="btn btn-primary" id="saveSettings">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
